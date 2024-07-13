@@ -1,5 +1,4 @@
 #include "IndexManager.h"
-#include <compare>
 #include <string>
 INDEX IndexManager::SearchByName(std::string name)
 {
@@ -22,7 +21,7 @@ void IndexManager::SetIndex(std::string name, uint32_t line)
 
 int IndexManager::GetIndex(std::string name)
 {
-	int i = 0;
+	size_t i = 0;
 	for (; i < index_list.size() && index_list[i].name != name; i++);
 
 	if (i < index_list.size())
@@ -30,7 +29,7 @@ int IndexManager::GetIndex(std::string name)
 	return -1;
 }
 
-INDEX IndexManager::GetByIndex(int index)
+INDEX IndexManager::GetByIndex(size_t index)
 {
 	if (index < index_list.size())
 		return index_list[index];

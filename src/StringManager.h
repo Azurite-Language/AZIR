@@ -27,5 +27,4 @@ namespace StringManager
 	AzuString PopValue();
 	AzuString PushFantom(size_t nbchar);
 	const PoolManager::Entry EntryNull = { false, 0, 0, false };
-};
-
+}

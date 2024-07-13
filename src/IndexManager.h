@@ -20,7 +20,7 @@ public:
 	INDEX SearchByName(std::string name);
 	void SetIndex(std::string name, uint32_t line);
 	int GetIndex(std::string name);
-	INDEX GetByIndex(int index);
+	INDEX GetByIndex(size_t index);
 	bool IsRelative(std::string name);
 	std::string RelativeToAbsolute(std::string relative);
 	void PushIndex();

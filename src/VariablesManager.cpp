@@ -3,34 +3,40 @@
 int VariablesManager::GetVarIndex(std::string varname)
 {
 
-    int i = 0;
-    for (; i < varlist.size() && varlist[i].name != varname; i++);
+    size_t i = 0;
+    for (; i < variableContext[currentFunction].size() && variableContext[currentFunction][i].name != varname; i++);
 
-    if (i < varlist.size())
+    if (i < variableContext[currentFunction].size())
         return i;
         
     return -1;
 }
 
-VariablesManager::Variable VariablesManager::GetVarByIndex(int index)
+VariablesManager::Variable VariablesManager::GetVarByIndex(size_t index)
 {
-    if (index < varlist.size())
-        return varlist[index];
-    return {true, "", 0 };
+    if (index < variableContext[currentFunction].size())
+        return variableContext[currentFunction][index];
+    return {true, "", 0, VARIABLE_TYPE::NUM, 0};
 }
 
 void VariablesManager::FlushVars()
 {
-    varlist = {};
+    variableContext[currentFunction] = {};
+    currentFunction = "";
 }
 
 void VariablesManager::AddVar(std::string varname)
 {
-    varlist.push_back({true ,varname,varlist.size() });
-
+    variableContext[currentFunction].push_back({true, varname, 0, VARIABLE_TYPE::NUM, 0});
 }
 
 int VariablesManager::nbvars()
 {
-    return varlist.size();
+    return variableContext[currentFunction].size();
+}
+
+void VariablesManager::SetCurrentFunction(std::string name)
+{
+    currentFunction = name;
+    variableContext[currentFunction] = {};
 }

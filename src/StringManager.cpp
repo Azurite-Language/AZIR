@@ -9,14 +9,14 @@ StringManager::AzuString StringManager::PushValue(std::string value)
 		size++;
 		EntryList[value] = index.index;
 	}
-	entryStack.push({ PoolManager::GetEntry(EntryList[value]), NULL });
+	entryStack.push({ PoolManager::GetEntry(EntryList[value]), { false, "", 0, VariablesManager::VARIABLE_TYPE::STR, 0}});
 	// StackManager::PushStack("", 0, VariablesManager::VARIABLE_TYPE::STR, EntryList[value]);
 	return entryStack.top();
 }
 
 StringManager::AzuString StringManager::PushAddress(size_t address)
 {
-	return { PoolManager::GetEntry(address), NULL };
+	return { PoolManager::GetEntry(address), { false, "", 0, VariablesManager::VARIABLE_TYPE::NUM, 0 }};
 	// return PoolManager::Entry();
 }
 
