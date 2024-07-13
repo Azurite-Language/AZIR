@@ -22,4 +22,7 @@ $(OBJ)%.o: $(SRC)%.cpp
 $(TARGET): $(OBJ_FILES)
 	$(CC) -o $@ $^
 
+clean:
+	rm -rf $(OBJ_DIR) $(TARGET)
+
 -include $(DEPS)

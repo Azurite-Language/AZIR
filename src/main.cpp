@@ -227,7 +227,15 @@ void parsePush(std::vector<std::string> tokens, size_t &i, std::vector<std::stri
 	i += 2;
 	if (tokensToPush.size() == 1)
 	{
-		ret->push_back("PUSH " + tokensToPush[0]);
+		auto varindex = vmanager->GetVarIndex(tokensToPush[0]);
+		if (varindex == -1)
+		{
+			ret->push_back("PUSH " + tokensToPush[0]);
+		}
+		else
+		{
+			ret->push_back("PUSH_RELATIVE " + std::to_string(varindex));
+		}
 		i += 1;
 	}
 	else
@@ -304,8 +312,6 @@ std::vector<std::string> parseTokens(std::vector<std::string> tokens, IndexManag
 			break;
 		case OPCODE::RTS:
 			ret.push_back("POP_CALLSTACK " + std::to_string(vmanager.nbvars()));
-			vmanager.FlushVars();
-			manager.PopIndex();
 			i += 1;
 			break;
 		case OPCODE::PUSH_CALLSTACK:
